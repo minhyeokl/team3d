@@ -1,3 +1,6 @@
+const debug = process.env.NODE_ENV !== 'production'
+const name = 'team3d'
+
 module.exports = {
-  reactStrictMode: true,
+  assetPrefix: !debug ? `/${name}/` : '',
 }

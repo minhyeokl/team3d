@@ -28,7 +28,7 @@ export default function Home() {
           let lineString = ""
           let lineY = 0
 
-          const whitespaceRegex = /[\s]/g
+          const whitespaceRegex = /\s/g
           const partRegex = /^PART /gi
           const chapterRegex = /^CHAPTER /gi
           const sectionRegex = /^\d+\.\d+ /gi
@@ -109,7 +109,10 @@ export default function Home() {
               continue
             }
             else {
-              if(finalTable[i].category == 'section'){
+              if(finalTable[i].category == 'part' || finalTable[i].category == 'chapter'){
+                resultStr += '\n'
+              }
+              else if(finalTable[i].category == 'section'){
                 resultStr += '_'
               }
               else if(finalTable[i].category == 'subsection'){
