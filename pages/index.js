@@ -33,7 +33,7 @@ export default function Home() {
           const chapterRegex = /^CHAPTER /gi
           const sectionRegex = /^\d+\.\d+ /gi
           const subsectionRegex = /^\d+\.\d+\.\d+ /gi
-          const hasPageRegex = /\.{5,} \d+/g
+          const hasPageRegex = /\.{5,} ?\d+/g
 
           // Concatenate the string of the item to the final string
           for (var i = 0; i < textItems.length; i++) {
@@ -42,7 +42,6 @@ export default function Home() {
               lineY = item.transform[5]
               if (lineString.trim() != "") {
                 let strCategory = null
-
                 lineString.replace(whitespaceRegex, ' ')
                 if (lineString.match(partRegex)) {
                   strCategory = 'part'
@@ -61,7 +60,7 @@ export default function Home() {
                 }
 
                 if (strCategory != null) {
-                  const splitRegex = /\.{5,} /g
+                  const splitRegex = /\.{5,} ?/g
                   const splitedStr = lineString.split(splitRegex)
                   let titleStr = splitedStr[0]
                   let pageNum = splitedStr[1]
@@ -126,7 +125,7 @@ export default function Home() {
               resultStr += '\n'
             }        
           }
-          console.log(finalTable)
+          
           setResultText(resultStr)
         })
       })
