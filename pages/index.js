@@ -13,6 +13,7 @@ export default function Home() {
 
   const [file, setFile] = useState()
   const [printPage, setPrintPage] = useState(true)
+  const [caseFlag, setCaseFlag] = useState(false)
   const [printSubSection, setPrintSubSection] = useState(true)
 
   const [resultText, setResultText] = useState("")
@@ -64,8 +65,11 @@ export default function Home() {
                   const splitedStr = lineString.split(splitRegex)
                   let titleStr = splitedStr[0]
                   let pageNum = splitedStr[1]
-
-                  finalString.push({ category: strCategory, title: titleStr.toUpperCase(), page: pageNum | null })
+                  let resultStr = titleStr
+                  if (caseFlag == true){
+                    resultStr = titleStr.toUpperCase()
+                  }
+                  finalString.push({ category: strCategory, title: resultStr, page: pageNum | null })
                 }
               }
               lineString = ""
@@ -172,6 +176,13 @@ export default function Home() {
               />
               페이지 포함
               <br />
+              <input
+                type="checkbox"
+                checked={caseFlag}
+                onChange={e => setCaseFlag(e.target.checked)}
+              />
+              영문을 모두 대문자로 변환
+              
             </p>
 
             <input type='submit' value="목차 추출하기" onClick={readPdf} />
