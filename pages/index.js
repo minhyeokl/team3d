@@ -31,6 +31,7 @@ export default function Home() {
           const whitespaceRegex = /\s/g
           const partRegex = /^PART /gi
           const chapterRegex = /^CHAPTER /gi
+          const jangRegex = /^제? ?\d+ ?장/gi
           const sectionRegex = /^\d+\.\d+ /gi
           const subsectionRegex = /^\d+\.\d+\.\d+ /gi
           const hasPageRegex = /\.{5,} ?\d+/g
@@ -40,13 +41,14 @@ export default function Home() {
             var item = textItems[i]
             if (Math.abs(item.transform[5] - lineY) >= 10 || i == textItems.length - 1) {
               lineY = item.transform[5]
+              console.log(item.str,item.transform[4], lineY)
               if (lineString.trim() != "") {
                 let strCategory = null
                 lineString.replace(whitespaceRegex, ' ')
                 if (lineString.match(partRegex)) {
                   strCategory = 'part'
                 }
-                else if (lineString.match(chapterRegex)) {
+                else if (lineString.match(chapterRegex) || lineString.match(jangRegex)) {
                   strCategory = 'chapter'
                 }
                 else if (lineString.match(sectionRegex)) {
@@ -72,7 +74,7 @@ export default function Home() {
             }
             lineString += item.str
           }
-          // Solve promise with the text retrieven from the page
+
           resolve(finalString)
         });
       });
