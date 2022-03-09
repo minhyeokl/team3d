@@ -31,6 +31,7 @@ export default function Home() {
 
           const whitespaceRegex = /\s/g
           const partRegex = /^PART /gi
+          const booRegex = /^제? ?\d+ ?부/gi
           const chapterRegex = /^CHAPTER /gi
           const jangRegex = /^제? ?\d+ ?장/gi
           const sectionRegex = /^\d+\.\d+ /gi
@@ -46,7 +47,7 @@ export default function Home() {
               if (lineString.trim() != "") {
                 let strCategory = null
                 lineString.replace(whitespaceRegex, ' ')
-                if (lineString.match(partRegex)) {
+                if (lineString.match(partRegex) || lineString.match(booRegex)) {
                   strCategory = 'part'
                 }
                 else if (lineString.match(chapterRegex) || lineString.match(jangRegex)) {
